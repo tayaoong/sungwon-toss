@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>관리자 | KCC 성원창호</title>
+<link rel="icon" href="../assets/brand/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/brand.css">
+<link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="adm">
+
+<!-- 로그인 -->
+<section class="login" id="login" hidden>
+  <form class="login-card" id="loginForm">
+    <span class="login-logo" id="loginLogo"></span>
+    <h1>관리자 로그인</h1>
+    <p class="muted" id="loginSub">들어온 실측 신청을 확인하고 관리해요.</p>
+    <div class="field" id="emailField">
+      <label for="email">이메일</label>
+      <input class="input" id="email" type="email" autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="pw">비밀번호</label>
+      <input class="input" id="pw" type="password" autocomplete="current-password">
+    </div>
+    <p class="login-err" id="loginErr"></p>
+    <button class="btn btn-primary btn-lg btn-block" type="submit" id="loginBtn">로그인</button>
+    <p class="demo-hint" id="demoHint" hidden>데모 비밀번호: <b id="demoPw"></b></p>
+    <a class="back-site" href="../index.html">← 홈페이지로</a>
+  </form>
+</section>
+
+<!-- 관리 화면 -->
+<div class="app" id="app" hidden>
+  <header class="topbar">
+    <a class="logo" href="../index.html" target="_blank" id="admLogo"></a>
+    <span class="adm-tag">관리자</span>
+    <span class="mode-tag" id="modeTag"></span>
+    <div class="top-actions">
+      <button class="btn btn-grey btn-sm" id="exportBtn" type="button"><span data-i="download"></span>엑셀로 받기</button>
+      <button class="btn btn-grey btn-sm" id="logoutBtn" type="button">로그아웃</button>
+    </div>
+  </header>
+
+  <main class="adm-main">
+    <div class="adm-head">
+      <div>
+        <h1>실측 신청</h1>
+        <p class="muted" id="updated">불러오는 중…</p>
+      </div>
+      <button class="btn btn-weak btn-sm" id="refreshBtn" type="button"><span data-i="refresh"></span>새로고침</button>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <div class="toolbar">
+      <div class="status-tabs" id="tabs"></div>
+      <div class="search">
+        <span data-i="search"></span>
+        <input class="input" id="q" type="search" placeholder="이름, 전화번호, 지역으로 찾기">
+      </div>
+    </div>
+
+    <div class="list-wrap">
+      <table class="tbl" id="tbl">
+        <thead><tr><th>접수</th><th>고객</th><th>공사</th><th>집</th><th>지역</th><th>희망 시기</th><th>상태</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>
+        <span class="ico lg grey" data-i="inbox"></span>
+        <b id="emptyTitle">아직 들어온 신청이 없어요</b>
+        <p id="emptyDesc">홈페이지에서 실측 신청이 들어오면 여기에 바로 떠요.</p>
+        <div class="btn-row" style="justify-content:center">
+          <a class="btn btn-primary btn-sm" href="../contact.html" target="_blank">신청 화면 열기</a>
+          <button class="btn btn-grey btn-sm" id="seedBtn" type="button" hidden>예시 신청 넣어보기</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- 상세 서랍 -->
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-hidden="true"></aside>
+
+<!-- 사진 크게 보기 -->
+<div class="viewer" id="viewer" hidden><img alt=""><button type="button" aria-label="닫기">✕</button></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../assets/js/site-config.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+</body>
+</html>

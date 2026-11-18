@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>무료 실측 신청 | KCC 성원창호</title>
+<meta name="description" content="집 크기와 바꿀 곳만 골라주세요. 담당자가 바로 전화드려서 실측 날짜를 잡아드려요. 실측과 견적은 무료예요.">
+<link rel="icon" href="assets/brand/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/brand.css">
+<link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body class="contact-page">
+<main>
+  <section class="flow-wrap">
+    <div class="form-shell">
+
+      <div class="form-top">
+        <button class="back" type="button" id="back" aria-label="이전 단계" hidden><span data-icon="chevR"></span></button>
+        <div class="progress"><i id="bar"></i></div>
+        <span class="step-no" id="stepNo">1 / 5</span>
+      </div>
+
+      <form id="form" novalidate>
+        <!-- 1 공사 종류 -->
+        <div class="fstep active" data-step="1">
+          <h1 class="fq">어떤 공사를<br>생각하고 계세요?</h1>
+          <p class="fh">여러 개 골라도 돼요.</p>
+          <div class="tiles" data-name="work" data-multi>
+            <button type="button" class="tile" data-v="full"><span class="ico" data-icon="home"></span><b>샷시 전체 교체</b><span>집 안 창을 한 번에</span></button>
+            <button type="button" class="tile" data-v="part"><span class="ico" data-icon="grid"></span><b>일부만 교체</b><span>거실 창 · 방 하나 등</span></button>
+            <button type="button" class="tile" data-v="screen"><span class="ico" data-icon="bug"></span><b>방충망</b><span>교체 · 새로 달기</span></button>
+            <button type="button" class="tile" data-v="unsure"><span class="ico grey" data-icon="info"></span><b>잘 모르겠어요</b><span>실측 때 같이 봐요</span></button>
+          </div>
+        </div>
+
+        <!-- 2 집 정보 -->
+        <div class="fstep" data-step="2">
+          <h1 class="fq">집에 대해<br>조금만 알려주세요</h1>
+          <p class="fh">정확하지 않아도 괜찮아요.</p>
+          <div class="field">
+            <span class="label">집 형태</span>
+            <div class="pills" data-name="home_type">
+              <button type="button" class="pill" data-v="아파트">아파트</button>
+              <button type="button" class="pill" data-v="빌라">빌라</button>
+              <button type="button" class="pill" data-v="주택">단독 · 전원주택</button>
+              <button type="button" class="pill" data-v="상가">상가 · 사무실</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">평형</span>
+            <div class="pills" data-name="size">
+              <button type="button" class="pill" data-v="20평 미만">20평 미만</button>
+              <button type="button" class="pill" data-v="20평대">20평대</button>
+              <button type="button" class="pill" data-v="30평대">30평대</button>
+              <button type="button" class="pill" data-v="40평대">40평대</button>
+              <button type="button" class="pill" data-v="50평 이상">50평 이상</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">발코니 확장</span>
+            <div class="pills" data-name="expanded">
+              <button type="button" class="pill" data-v="확장형">확장형</button>
+              <button type="button" class="pill" data-v="비확장형">비확장형</button>
+              <button type="button" class="pill" data-v="모름">잘 모르겠어요</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 바꿀 곳 + 사진 -->
+        <div class="fstep" data-step="3">
+          <h1 class="fq">어디를 바꾸실 건가요?</h1>
+          <p class="fh">해당하는 곳을 모두 골라주세요.</p>
+          <div class="pills" data-name="rooms" data-multi>
+            <button type="button" class="pill" data-v="거실">거실</button>
+            <button type="button" class="pill" data-v="안방">안방</button>
+            <button type="button" class="pill" data-v="작은방">작은방</button>
+            <button type="button" class="pill" data-v="주방">주방</button>
+            <button type="button" class="pill" data-v="베란다">베란다</button>
+            <button type="button" class="pill" data-v="다용도실">다용도실</button>
+            <button type="button" class="pill" data-v="욕실">욕실</button>
+            <button type="button" class="pill" data-v="전체">집 전체</button>
+          </div>
+          <div class="field" style="margin-top:32px">
+            <span class="label">창 사진 <span class="opt">(선택 · 있으면 더 정확해요)</span></span>
+            <label class="upload" id="upload">
+              <input type="file" id="files" accept="image/*" multiple hidden>
+              <span class="ico" data-icon="camera"></span>
+              <b>사진 올리기</b>
+              <span>최대 5장</span>
+            </label>
+            <div class="thumbs" id="thumbs"></div>
+          </div>
+        </div>
+
+        <!-- 4 지역 · 시기 -->
+        <div class="fstep" data-step="4">
+          <h1 class="fq">어디로, 언제쯤<br>가면 될까요?</h1>
+          <p class="fh">정확한 주소는 실측 날짜를 정할 때 여쭤볼게요.</p>
+          <div class="field">
+            <label for="city">지역</label>
+            <select class="select" id="city">
+              <option value="">시 · 도를 골라주세요</option>
+              <option>서울</option><option>경기</option><option>인천</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="gu">시 · 군 · 구</label>
+            <select class="select" id="gu" disabled><option value="">먼저 지역을 골라주세요</option></select>
+          </div>
+          <div class="field">
+            <label for="apt">아파트 · 건물 이름 <span class="opt">(선택)</span></label>
+            <input class="input" id="apt" placeholder="예: OO아파트 112동" maxlength="60">
+          </div>
+          <div class="field">
+            <span class="label">공사 희망 시기</span>
+            <div class="pills" data-name="timing">
+              <button type="button" class="pill" data-v="한 달 안에">한 달 안에</button>
+              <button type="button" class="pill" data-v="2~3개월 안에">2~3개월 안에</button>
+              <button type="button" class="pill" data-v="이사 날짜에 맞춰">이사 날짜에 맞춰</button>
+              <button type="button" class="pill" data-v="아직 미정">아직 미정</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 연락처 -->
+        <div class="fstep" data-step="5">
+          <h1 class="fq">연락받을 곳을<br>알려주세요</h1>
+          <p class="fh">담당자가 전화드려서 실측 날짜를 잡아드려요.</p>
+          <div class="field">
+            <label for="name">이름</label>
+            <input class="input" id="name" placeholder="홍길동" autocomplete="name" maxlength="20">
+            <p class="err-msg">이름을 적어주세요</p>
+          </div>
+          <div class="field">
+            <label for="phone">휴대폰 번호</label>
+            <input class="input" id="phone" inputmode="numeric" placeholder="010-0000-0000" autocomplete="tel" maxlength="13">
+            <p class="err-msg">휴대폰 번호를 다시 확인해 주세요</p>
+          </div>
+          <div class="field">
+            <span class="label">실측 오시면 편한 때</span>
+            <div class="pills" data-name="visit_pref">
+              <button type="button" class="pill on" data-v="빠를수록 좋아요">빠를수록 좋아요</button>
+              <button type="button" class="pill" data-v="평일 낮">평일 낮</button>
+              <button type="button" class="pill" data-v="평일 저녁">평일 저녁</button>
+              <button type="button" class="pill" data-v="주말">주말</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="memo">더 알려주실 게 있나요? <span class="opt">(선택)</span></label>
+            <textarea class="textarea" id="memo" maxlength="1000" placeholder="예: 겨울마다 거실 창에 결로가 심해요. 12월 중순에 이사 들어가요."></textarea>
+          </div>
+          <label class="agree">
+            <input type="checkbox" id="agree">
+            <span class="box"><span data-icon="check"></span></span>
+            <span>상담을 위한 개인정보 수집·이용에 동의해요 <a href="privacy.html" target="_blank">보기</a></span>
+          </label>
+          <p class="err-msg submit-err" id="submitErr"></p>
+        </div>
+
+        <!-- 완료 -->
+        <div class="fstep done" data-step="6">
+          <div class="done-check"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg></div>
+          <h1 class="fq center">신청됐어요</h1>
+          <p class="fh center"><b id="doneName">고객</b>님, 담당자가 확인하고 곧 전화드릴게요.<br>운영 시간이 아니면 다음 날 오전에 가장 먼저 연락드려요.</p>
+          <div class="done-sum" id="doneSum"></div>
+          <div class="btn-row stack-m" style="justify-content:center;margin-top:28px">
+            <a class="btn btn-grey" href="index.html">홈으로</a>
+            <a class="btn btn-weak" href="cases.html">비슷한 시공 사례 보기</a>
+          </div>
+          <p class="demo-note" id="demoNote" hidden>데모 모드예요. 이 신청은 지금 브라우저에만 저장됐어요. <a href="admin/index.html">관리자 페이지에서 확인하기</a></p>
+        </div>
+
+        <div class="form-cta" id="cta">
+          <button type="button" class="btn btn-primary btn-lg btn-block" id="next" disabled>다음</button>
+        </div>
+      </form>
+
+      <p class="form-alt" id="alt">글로 쓰기 번거로우시면 <a data-tel href="#">전화</a>로 편하게 말씀해 주세요.</p>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/site-config.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  const form = document.getElementById('form');
+  const steps = [...form.querySelectorAll('.fstep')];
+  const next = document.getElementById('next');
+  const back = document.getElementById('back');
+  const bar = document.getElementById('bar');
+  const stepNo = document.getElementById('stepNo');
+  const TOTAL = 5;
+  let cur = 1, busy = false;
+  const data = { work: [], home_type: '', size: '', expanded: '', rooms: [], timing: '', visit_pref: '빠를수록 좋아요' };
+  const files = [];
+
+  const GU = {
+    '서울': ['강남구', '강동구', '강서구', '관악구', '광진구', '구로구', '노원구', '동작구', '마포구', '서초구', '성동구', '송파구', '양천구', '영등포구', '용산구', '은평구', '그 밖의 구'],
+    '경기': ['고양시', '과천시', '광명시', '광주시', '군포시', '김포시', '남양주시', '부천시', '성남시', '수원시', '시흥시', '안산시', '안양시', '오산시', '용인시', '의왕시', '의정부시', '파주시', '평택시', '하남시', '화성시', '그 밖의 시 · 군'],
+    '인천': ['남동구', '미추홀구', '부평구', '서구', '연수구', '계양구', '그 밖의 구 · 군'],
+  };
+
+  /* 단일/다중 선택 */
+  const pick = (name, v, on = true) => {
+    const g = form.querySelector(`[data-name="${name}"]`); if (!g) return;
+    const b = g.querySelector(`[data-v="${v}"]`); if (!b) return;
+    if (g.hasAttribute('data-multi')) { b.classList.toggle('on', on); data[name] = [...g.querySelectorAll('.on')].map(x => x.dataset.v); }
+    else { g.querySelectorAll('[data-v]').forEach(x => x.classList.toggle('on', x === b)); data[name] = v; }
+  };
+  form.querySelectorAll('[data-name]').forEach(g => {
+    g.addEventListener('click', e => {
+      const b = e.target.closest('[data-v]'); if (!b) return;
+      if (g.hasAttribute('data-multi')) pick(g.dataset.name, b.dataset.v, !b.classList.contains('on'));
+      else pick(g.dataset.name, b.dataset.v);
+      // "집 전체"를 고르면 나머지는 풀어요
+      if (g.dataset.name === 'rooms') {
+        if (b.dataset.v === '전체' && b.classList.contains('on')) g.querySelectorAll('.on').forEach(x => x !== b && x.classList.remove('on'));
+        else if (b.dataset.v !== '전체') g.querySelector('[data-v="전체"]').classList.remove('on');
+        data.rooms = [...g.querySelectorAll('.on')].map(x => x.dataset.v);
+      }
+      validate();
+    });
+  });
+
+  /* 다른 페이지에서 넘어온 값 미리 채우기 */
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('work')) pick('work', qs.get('work'));
+  if (qs.get('scope')) {
+    pick('work', qs.get('scope') === 'full' ? 'full' : 'part');
+    if (qs.get('screen')) pick('work', 'screen');
+    pick('home_type', qs.get('home') === 'villa' ? '빌라' : '아파트');
+    const p = +qs.get('size');
+    if (p) pick('size', p < 20 ? '20평 미만' : p < 30 ? '20평대' : p < 40 ? '30평대' : p < 50 ? '40평대' : '50평 이상');
+    pick('expanded', { yes: '확장형', no: '비확장형', unknown: '모름' }[qs.get('exp')] || '');
+    data.glass = { basic: '일반 복층유리', lowe: '로이 복층유리', argon: '로이 + 아르곤' }[qs.get('glass')] || '';
+  }
+
+  /* 사진 */
+  const thumbs = document.getElementById('thumbs');
+  const drawThumbs = () => {
+    thumbs.innerHTML = files.map((f, i) => `<div class="thumb"><img src="${f.url}" alt=""><button type="button" data-i="${i}" aria-label="사진 지우기">${icon('x')}</button></div>`).join('');
+    document.getElementById('upload').classList.toggle('has', files.length > 0);
+    document.querySelector('#upload b').textContent = files.length ? `사진 ${files.length}장 · 더 올리기` : '사진 올리기';
+  };
+  document.getElementById('files').addEventListener('change', e => {
+    [...e.target.files].filter(f => f.type.startsWith('image/')).slice(0, 5 - files.length)
+      .forEach(f => files.push({ file: f, url: URL.createObjectURL(f) }));
+    e.target.value = '';
+    drawThumbs();
+  });
+  thumbs.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; URL.revokeObjectURL(files[+b.dataset.i].url); files.splice(+b.dataset.i, 1); drawThumbs(); });
+
+  /* 지역 */
+  const city = document.getElementById('city'), gu = document.getElementById('gu');
+  city.addEventListener('change', () => {
+    gu.disabled = !city.value;
+    gu.innerHTML = city.value ? '<option value="">골라주세요</option>' + GU[city.value].map(g => `<option>${g}</option>`).join('') : '<option value="">먼저 지역을 골라주세요</option>';
+    validate();
+  });
+  gu.addEventListener('change', validate);
+
+  /* 연락처 */
+  const nameI = document.getElementById('name'), phoneI = document.getElementById('phone'), agree = document.getElementById('agree');
+  const clearErr = el => { el.classList.remove('err'); el.closest('.field').classList.remove('has-err'); };
+  phoneI.addEventListener('input', () => {
+    const d = phoneI.value.replace(/\D/g, '').slice(0, 11);
+    phoneI.value = d.length < 4 ? d : d.length < 8 ? `${d.slice(0, 3)}-${d.slice(3)}` : `${d.slice(0, 3)}-${d.slice(3, d.length === 10 ? 6 : 7)}-${d.slice(d.length === 10 ? 6 : 7)}`;
+    clearErr(phoneI); validate();
+  });
+  nameI.addEventListener('input', () => { clearErr(nameI); validate(); });
+  agree.addEventListener('change', validate);
+  const okPhone = () => /^01[016789]-\d{3,4}-\d{4}$/.test(phoneI.value);
+
+  function validate() {
+    let ok = true;
+    if (cur === 1) ok = data.work.length > 0;
+    if (cur === 2) ok = !!(data.home_type && data.size && data.expanded);
+    if (cur === 3) ok = data.rooms.length > 0;
+    if (cur === 4) ok = !!(city.value && gu.value && data.timing);
+    if (cur === 5) ok = !!(nameI.value.trim() && phoneI.value.length >= 12 && agree.checked);
+    next.disabled = busy || !ok;
+  }
+
+  function go(n, dir = 1) {
+    const from = steps.find(s => s.classList.contains('active'));
+    const to = steps.find(s => +s.dataset.step === n);
+    from.classList.remove('active');
+    to.classList.add('active', dir > 0 ? 'enter' : 'enter-back');
+    setTimeout(() => to.classList.remove('enter', 'enter-back'), 500);
+    cur = n;
+    bar.style.width = (n > TOTAL ? 100 : n / TOTAL * 100) + '%';
+    stepNo.textContent = n > TOTAL ? '완료' : `${n} / ${TOTAL}`;
+    back.hidden = n === 1 || n > TOTAL;
+    next.textContent = n === TOTAL ? '실측 신청하기' : '다음';
+    document.getElementById('cta').hidden = n > TOTAL;
+    document.getElementById('alt').hidden = n > TOTAL;
+    validate();
+    scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  next.addEventListener('click', async () => {
+    if (cur < TOTAL) return go(cur + 1, 1);
+    let bad = false;
+    if (!nameI.value.trim()) { nameI.classList.add('err'); nameI.closest('.field').classList.add('has-err'); bad = true; }
+    if (!okPhone()) { phoneI.classList.add('err'); phoneI.closest('.field').classList.add('has-err'); bad = true; }
+    if (bad) return;
+
+    busy = true; validate();
+    next.innerHTML = '<span class="spin"></span>';
+    const err = document.getElementById('submitErr');
+    err.textContent = ''; err.style.display = 'none';
+    const payload = {
+      ...data,
+      region: `${city.value} ${gu.value}`,
+      apt: document.getElementById('apt').value.trim(),
+      name: nameI.value.trim(),
+      phone: phoneI.value,
+      memo: document.getElementById('memo').value.trim(),
+    };
+    try {
+      await STORE.createRequest(payload, files.map(f => f.file));
+      showDone(payload);
+    } catch (e) {
+      err.textContent = e.message || '신청을 보내지 못했어요. 잠시 뒤 다시 시도하거나 전화로 문의해 주세요.';
+      err.style.display = 'block';
+      next.textContent = '다시 시도하기';
+    } finally { busy = false; validate(); }
+  });
+  back.addEventListener('click', () => go(cur - 1, -1));
+
+  function showDone(p) {
+    const W = { full: '전체 교체', part: '일부 교체', screen: '방충망', unsure: '상담 후 결정' };
+    document.getElementById('doneName').textContent = p.name;
+    document.getElementById('doneSum').innerHTML = [
+      ['공사', p.work.map(w => W[w]).join(', ')],
+      ['집', `${p.home_type} · ${p.size} · ${p.expanded}`],
+      ['바꿀 곳', p.rooms.join(', ')],
+      ['사진', files.length ? `${files.length}장` : '없음'],
+      ['지역', p.region + (p.apt ? ' · ' + p.apt : '')],
+      ['희망 시기', p.timing],
+      ['연락처', p.phone],
+    ].map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join('');
+    document.getElementById('demoNote').hidden = STORE.mode !== 'local';
+    go(6, 1);
+    setTimeout(() => document.querySelector('.done-check').classList.add('go'), 150);
+  }
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+  validate();
+})();
+</script>
+</body>
+</html>

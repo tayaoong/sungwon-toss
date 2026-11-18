@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>시공 사례 | KCC 성원창호</title>
+<meta name="description" content="성원창호가 직접 시공한 아파트 · 주택 · 상가 현장 사진이에요. 오산, 화성, 평택, 수원, 용인, 의왕, 안양, 서울.">
+<link rel="icon" href="assets/brand/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/brand.css">
+<link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body>
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="crumb" data-reveal><a href="index.html">홈</a><span data-icon="chevR"></span><span>시공 사례</span></nav>
+      <h1 class="display lines">저희가 직접<br>시공한 현장이에요</h1>
+      <p class="lead pretty" data-reveal style="--d:.25s">모든 사진은 성원창호가 시공한 실제 현장이에요. <br class="pc">우리 동네, 우리 아파트와 비슷한 곳이 있는지 찾아보세요.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:8px">
+    <div class="wrap">
+      <div class="cases-bar" data-reveal>
+        <div class="filters" id="kinds">
+          <button class="filter on" data-k="all">전체</button>
+          <button class="filter" data-k="apt">아파트</button>
+          <button class="filter" data-k="house">주택 · 빌라</button>
+          <button class="filter" data-k="etc">상가 · 특수 공사</button>
+        </div>
+        <select class="select region-sel" id="region" aria-label="지역으로 보기"><option value="">모든 지역</option></select>
+      </div>
+      <p class="case-count" id="count" data-reveal></p>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="wrap">
+      <div class="cta-band" data-reveal="scale">
+        <div class="glow"></div>
+        <h2 class="title">우리 집과 비슷한<br>현장이 있었나요?</h2>
+        <p>실측 오면 비슷한 집에 어떤 창을 달았는지 같이 보여드릴게요.</p>
+        <div class="btn-row stack-m">
+          <a class="btn btn-accent btn-lg" href="contact.html">무료 실측 신청</a>
+          <a class="btn btn-lg cta-ghost" data-tel href="#"><span data-icon="phone"></span><span class="mono" data-site="phone">010-3636-2079</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- 크게 보기 -->
+<div class="lb" id="lb" hidden>
+  <button class="lb-x" type="button" aria-label="닫기">✕</button>
+  <button class="lb-nav prev" type="button" aria-label="이전 사진">‹</button>
+  <figure><img alt=""><figcaption></figcaption></figure>
+  <button class="lb-nav next" type="button" aria-label="다음 사진">›</button>
+</div>
+
+<script src="assets/js/site-config.js"></script>
+<script src="assets/js/cases-data.js"></script>
+<script>
+(function () {
+  const g = document.getElementById('gallery');
+  const KIND = { apt: '아파트', house: '주택 · 빌라', etc: '상가 · 특수' };
+  g.innerHTML = CASES.map((c, i) => `
+    <button class="g-item" type="button" data-i="${i}" data-k="${c.kind}" data-r="${c.region}">
+      <span class="g-img"><img src="assets/img/real/${c.img}" alt="${c.t} 시공 사진" loading="lazy"></span>
+      <span class="g-meta"><b>${c.t}</b><span>${c.region} · ${KIND[c.kind]}</span></span>
+    </button>`).join('');
+  const regions = [...new Set(CASES.map(c => c.region))].filter(r => r !== '기타');
+  document.getElementById('region').insertAdjacentHTML('beforeend', regions.map(r => `<option>${r}</option>`).join(''));
+})();
+</script>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  const items = [...document.querySelectorAll('.g-item')];
+  let kind = 'all', region = '';
+  const count = document.getElementById('count');
+  const apply = () => {
+    let n = 0;
+    items.forEach(el => {
+      const show = (kind === 'all' || el.dataset.k === kind) && (!region || el.dataset.r === region);
+      el.hidden = !show;
+      if (show) { el.style.animationDelay = (n * 0.03) + 's'; el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); n++; }
+    });
+    count.innerHTML = `현장 <b class="mono">${n}</b>곳`;
+  };
+  document.getElementById('kinds').addEventListener('click', e => {
+    const b = e.target.closest('.filter'); if (!b) return;
+    kind = b.dataset.k;
+    document.querySelectorAll('#kinds .filter').forEach(x => x.classList.toggle('on', x === b));
+    apply();
+  });
+  document.getElementById('region').addEventListener('change', e => { region = e.target.value; apply(); });
+  apply();
+
+  /* 크게 보기 */
+  const lb = document.getElementById('lb'), img = lb.querySelector('img'), cap = lb.querySelector('figcaption');
+  let cur = 0;
+  const visible = () => items.filter(x => !x.hidden);
+  const show = i => {
+    const v = visible(); cur = (i + v.length) % v.length;
+    const c = CASES[+v[cur].dataset.i];
+    img.src = 'assets/img/real/' + c.img; img.alt = c.t;
+    cap.innerHTML = `<b>${c.t}</b><span class="mono">${cur + 1} / ${v.length}</span>`;
+  };
+  const g = document.getElementById('gallery');
+  g.addEventListener('click', e => {
+    const b = e.target.closest('.g-item'); if (!b) return;
+    show(visible().indexOf(b)); lb.hidden = false; document.body.style.overflow = 'hidden';
+  });
+  const close = () => { lb.hidden = true; document.body.style.overflow = ''; };
+  lb.querySelector('.lb-x').onclick = close;
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  lb.querySelector('.prev').onclick = () => show(cur - 1);
+  lb.querySelector('.next').onclick = () => show(cur + 1);
+  addEventListener('keydown', e => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(cur - 1);
+    if (e.key === 'ArrowRight') show(cur + 1);
+  });
+  let sx = null;
+  lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', e => { if (sx === null) return; const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); sx = null; });
+})();
+</script>
+</body>
+</html>

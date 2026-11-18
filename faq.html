@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>자주 묻는 질문 | KCC 성원창호</title>
+<meta name="description" content="견적, 공사 기간, 살면서 하는 공사, A/S까지. 샷시 교체 전에 많이 물어보시는 것들을 모았어요.">
+<link rel="icon" href="assets/brand/logo-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/brand.css">
+<link rel="stylesheet" href="assets/css/home.css">
+</head>
+<body>
+<main>
+
+  <section class="page-hero">
+    <div class="wrap wrap-narrow">
+      <nav class="crumb" data-reveal><a href="index.html">홈</a><span data-icon="chevR"></span><span>자주 묻는 질문</span></nav>
+      <h1 class="display lines">무엇이든<br>물어보세요</h1>
+      <div class="faq-search" data-reveal style="--d:.25s">
+        <span data-icon="search"></span>
+        <input class="input" id="faqQ" type="search" placeholder="궁금한 내용을 검색해 보세요 (예: 결로)" autocomplete="off">
+      </div>
+      <div class="filters" id="faqCats" data-reveal style="--d:.32s;margin-top:16px">
+        <button class="filter on" data-c="all">전체</button>
+        <button class="filter" data-c="cost">비용</button>
+        <button class="filter" data-c="visit">방문 · 일정</button>
+        <button class="filter" data-c="repair">공사 · 제품</button>
+        <button class="filter" data-c="as">보증 · A/S</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap wrap-narrow">
+      <div class="acc line-acc" id="faqList" data-reveal></div>
+      <div class="faq-empty" id="faqEmpty" hidden>
+        <span class="ico lg grey" data-icon="search"></span>
+        <p><b>찾는 질문이 없나요?</b>전화나 카카오톡으로 편하게 물어보세요.</p>
+        <div class="btn-row" style="justify-content:center">
+          <a class="btn btn-weak" data-tel href="#">전화 걸기</a>
+          <a class="btn btn-grey" data-kakao href="#">카카오톡 문의</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band" data-reveal="scale">
+        <div class="glow"></div>
+        <h2 class="title">궁금한 게 풀렸다면<br>실측부터 받아보세요</h2>
+        <p>실측과 견적은 무료예요. 견적을 보고 정하셔도 돼요.</p>
+        <div class="btn-row stack-m">
+          <a class="btn btn-accent btn-lg" href="contact.html">무료 실측 신청</a>
+          <a class="btn btn-lg cta-ghost" data-tel href="#"><span data-icon="phone"></span><span class="mono" data-site="phone">010-3636-2079</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+<script>
+const FAQ = [
+  ['cost', '실측만 받아봐도 되나요?', '네. 실측과 견적은 무료예요. 견적서를 받아보고 다른 곳과 비교하셔도 괜찮아요. 계약하지 않아도 비용을 받지 않아요.'],
+  ['cost', '견적서에 없는 비용이 나중에 붙나요?', '아니요. 철거, 폐기물 처리, 실리콘, 청소까지 견적서에 다 들어 있어요. 사다리차가 필요한 집은 견적서에 미리 적어드려요. 계약한 금액에서 더 받지 않아요.'],
+  ['cost', '카드 결제나 할부가 되나요?', '네, 카드 결제와 카드사 무이자 할부가 돼요. 현금영수증과 세금계산서도 발행해 드려요.'],
+  ['cost', '계약금은 얼마인가요?', '계약할 때 공사 금액의 일부를 계약금으로 받고, 나머지는 공사가 끝나고 확인하신 뒤에 받아요. 자세한 비율은 계약서에 적어드려요.'],
+  ['visit', '실측은 얼마나 걸려요?', '30평대 아파트 기준 30분에서 1시간쯤 걸려요. 창마다 크기를 재고, 샘플을 보면서 창 종류와 유리를 같이 골라요.'],
+  ['visit', '계약하고 공사까지 얼마나 걸려요?', '집에 맞춰 창을 만드는 데 1~2주 걸려요. 이사나 인테리어 날짜가 정해져 있으면 계약할 때 말씀해 주세요.'],
+  ['visit', '공사는 정말 하루면 끝나나요?', '32평 아파트 전체 교체 기준으로 아침 8시 반에 시작해서 저녁 5~6시쯤 끝나요. 창이 많거나 큰 집은 이틀에 나눠 하기도 해요.'],
+  ['visit', '살면서 공사해도 되나요?', '네, 대부분 살면서 하세요. 창 앞 가구만 1m쯤 띄워주시면 나머지는 저희가 비닐로 덮고 작업해요.'],
+  ['visit', '관리사무소 신고는 누가 하나요?', '저희가 해요. 엘리베이터 사용 예약과 이웃 안내문 부착까지 챙겨요.'],
+  ['repair', '확장형과 비확장형은 뭐가 다른가요?', '확장형은 발코니를 거실로 넓혀서 바깥 창 하나만 있는 구조고, 비확장형은 발코니 바깥 창과 거실 안쪽 창이 따로 있어요. 비확장형이 창 개수가 많아요.'],
+  ['repair', '로이유리가 꼭 필요한가요?', '결로나 추위가 고민이라면 권해요. 일반 복층유리보다 조금 더 들지만 단열 차이가 커요. 남향이고 예산이 빠듯하면 일반 복층유리도 괜찮아요.'],
+  ['repair', '겨울에도 공사할 수 있나요?', '네. 창을 하나씩 떼고 바로 새 창을 끼우기 때문에 집이 오래 열려 있지 않아요. 영하 10도 아래로 내려가는 날만 피해서 잡아요.'],
+  ['repair', '창 하나만 바꿔도 되나요?', '네. 창 1곳부터 바꿀 수 있어요. 실측해 보고 상태가 괜찮은 창은 그냥 두셔도 된다고 말씀드려요.'],
+  ['as', 'A/S는 어떻게 받나요?', '전화나 카카오톡으로 연락 주세요. 시공한 팀이 직접 가요. 제조사 제품 보증과 별도로 시공 하자도 책임져요.'],
+  ['as', '어떤 제품이 들어갔는지 알 수 있나요?', '공사가 끝나면 창마다 제품명과 유리 사양을 적은 시공 내역서를 드려요. 창틀과 유리에 찍힌 제조사 표시로도 확인할 수 있어요.'],
+];
+const CATN = { cost: '비용', visit: '방문 · 일정', repair: '공사 · 제품', as: '보증 · A/S' };
+document.getElementById('faqList').innerHTML = FAQ.map(([c, q, a]) => `
+  <div class="acc-item" data-c="${c}">
+    <button class="acc-q"><span class="q">Q</span><span class="t">${q}</span></button>
+    <div class="acc-a"><div><p>${a}</p></div></div>
+  </div>`).join('');
+</script>
+<script src="assets/js/site-config.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+(function () {
+  const q = document.getElementById('faqQ');
+  let cat = 'all';
+  const items = [...document.querySelectorAll('#faqList .acc-item')];
+  const apply = () => {
+    const s = q.value.trim().replace(/\s+/g, '');
+    let n = 0;
+    items.forEach(it => {
+      const text = it.textContent.replace(/\s+/g, '');
+      const show = (cat === 'all' || it.dataset.c === cat) && (!s || text.includes(s));
+      it.hidden = !show; if (show) n++;
+      if (s && show) it.classList.add('open');
+      if (!s) it.classList.remove('open');
+    });
+    document.getElementById('faqList').hidden = !n;
+    document.getElementById('faqEmpty').hidden = !!n;
+  };
+  q.addEventListener('input', apply);
+  document.getElementById('faqCats').addEventListener('click', e => {
+    const b = e.target.closest('.filter'); if (!b) return;
+    cat = b.dataset.c;
+    document.querySelectorAll('#faqCats .filter').forEach(x => x.classList.toggle('on', x === b));
+    apply();
+  });
+})();
+</script>
+</body>
+</html>

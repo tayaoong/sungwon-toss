@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" rx="13" fill="#3182F6"/>
+  <!-- 뒤 창짝 -->
+  <rect x="10" y="12" width="17" height="24" rx="3" fill="#fff" fill-opacity=".42"/>
+  <!-- 앞 창짝 (밀려 들어오는 모양) -->
+  <rect x="21" y="12" width="17" height="24" rx="3" fill="#fff"/>
+  <rect x="24.5" y="21" width="2.6" height="6" rx="1.3" fill="#3182F6"/>
+</svg>
