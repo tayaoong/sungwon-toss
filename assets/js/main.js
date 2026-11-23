@@ -49,7 +49,7 @@
   /* ---------- 메뉴 정의 ---------- */
   const services = [
     { href: 'replace.html', ic: 'home', t: '샷시 교체', d: '오래된 샷시 철거부터 마감까지' },
-    { href: 'products.html', ic: 'grid', t: 'KCC 창호 제품', d: '발코니 · 일반 · 시스템 창호' },
+    { href: 'products.html', ic: 'grid', t: 'KCC 창호 제품', d: '발코니 이중창 · 일반 창호' },
     { href: 'process.html', ic: 'calendar', t: '시공 과정', d: '상담부터 A/S까지' },
     { href: 'screen.html', ic: 'bug', t: '방충망', d: '미세 · 롤 방충망' },
   ];
