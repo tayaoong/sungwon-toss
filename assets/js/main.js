@@ -142,7 +142,7 @@
         <span>공장 · 사무실 ${S.address}${S.addressOld ? ` (${S.addressOld})` : ''}</span>${opt(S.email, `<span>${S.email}</span>`)}
         <a class="biz-map" href="${mapUrl}" target="_blank" rel="noopener">지도 보기${icon('chevR')}</a>
       </div>
-      <div class="copy"><span>© ${new Date().getFullYear()} ${S.bizName || S.name}</span><a href="privacy.html">개인정보처리방침</a><a href="admin/index.html" class="admin-link">관리자</a></div>
+      <div class="copy"><span>© ${new Date().getFullYear()} ${S.bizName || S.name}</span><a href="privacy.html">개인정보처리방침</a></div>
     </div>`;
   document.body.append(footer);
 
