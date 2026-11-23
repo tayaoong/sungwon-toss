@@ -25,8 +25,6 @@ window.CASES = [
   { t: '의왕 오전동 성원이화아파트', region: '의왕', kind: 'apt', img: 'c18.jpg' },
   { t: '안양 관악현대아파트', region: '안양', kind: 'apt', img: 'c19.jpg' },
   { t: '오산 운암주공아파트', region: '오산', kind: 'apt', img: 'c20.jpg', home: true },
-  { t: '화성 정남 공장 출입구 스텐 강화도어', region: '화성', kind: 'etc', img: 'c21.jpg' },
-  { t: '연천 주택 썬룸', region: '연천', kind: 'house', img: 'c22.jpg' },
   { t: '수원 문화의전당 파티션', region: '수원', kind: 'etc', img: 'c23.jpg' },
   { t: '수원 문화의전당 실리콘 작업', region: '수원', kind: 'etc', img: 'c24.jpg' },
   { t: '안산 대부도 바비큐장 커튼월', region: '안산', kind: 'etc', img: 'c25.jpg' },
