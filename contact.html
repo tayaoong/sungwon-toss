@@ -104,7 +104,7 @@
             <label for="city">지역</label>
             <select class="select" id="city">
               <option value="">시 · 도를 골라주세요</option>
-              <option>서울</option><option>경기</option><option>인천</option>
+              <option>서울</option><option>경기</option>
             </select>
           </div>
           <div class="field">
@@ -164,14 +164,20 @@
         <!-- 완료 -->
         <div class="fstep done" data-step="6">
           <div class="done-check"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-15"/></svg></div>
-          <h1 class="fq center">신청됐어요</h1>
-          <p class="fh center"><b id="doneName">고객</b>님, 담당자가 확인하고 곧 전화드릴게요.<br>운영 시간이 아니면 다음 날 오전에 가장 먼저 연락드려요.</p>
+          <h1 class="fq center">문자만 보내면 끝나요</h1>
+          <p class="fh center" id="smsGuide"><b id="doneName">고객</b>님, 문자 앱이 열리면 <b>보내기</b>만 눌러주세요.<br>사장님 휴대폰으로 바로 가고, 확인하면 전화드려요.</p>
           <div class="done-sum" id="doneSum"></div>
+          <div class="sms-box">
+            <a class="btn btn-accent btn-lg btn-block" id="smsBtn" href="#"><span data-icon="chat"></span>사장님께 문자 보내기</a>
+            <p class="sms-pc" id="smsPc" hidden>컴퓨터에서는 문자 앱이 열리지 않아요. 아래 내용을 복사해서 <b class="mono" data-site="phone">010-9949-5781</b>로 보내주시거나 전화 주세요.</p>
+            <textarea class="textarea sms-text" id="smsText" readonly hidden></textarea>
+            <button type="button" class="btn btn-grey btn-block" id="copyBtn" hidden>내용 복사하기</button>
+            <p class="sms-tip" id="smsTip" hidden>사진은 문자에 직접 붙여서 보내주세요.</p>
+          </div>
           <div class="btn-row stack-m" style="justify-content:center;margin-top:28px">
             <a class="btn btn-grey" href="index.html">홈으로</a>
             <a class="btn btn-weak" href="cases.html">비슷한 시공 사례 보기</a>
           </div>
-          <p class="demo-note" id="demoNote" hidden>데모 모드예요. 이 신청은 지금 브라우저에만 저장됐어요. <a href="admin/index.html">관리자 페이지에서 확인하기</a></p>
         </div>
 
         <div class="form-cta" id="cta">
@@ -185,7 +191,6 @@
 </main>
 
 <script src="assets/js/site-config.js"></script>
-<script src="assets/js/store.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
 (function () {
@@ -203,7 +208,6 @@
   const GU = {
     '서울': ['강남구', '강동구', '강서구', '관악구', '광진구', '구로구', '노원구', '동작구', '마포구', '서초구', '성동구', '송파구', '양천구', '영등포구', '용산구', '은평구', '그 밖의 구'],
     '경기': ['고양시', '과천시', '광명시', '광주시', '군포시', '김포시', '남양주시', '부천시', '성남시', '수원시', '시흥시', '안산시', '안양시', '오산시', '용인시', '의왕시', '의정부시', '파주시', '평택시', '하남시', '화성시', '그 밖의 시 · 군'],
-    '인천': ['남동구', '미추홀구', '부평구', '서구', '연수구', '계양구', '그 밖의 구 · 군'],
   };
 
   /* 단일/다중 선택 */
@@ -297,7 +301,7 @@
     bar.style.width = (n > TOTAL ? 100 : n / TOTAL * 100) + '%';
     stepNo.textContent = n > TOTAL ? '완료' : `${n} / ${TOTAL}`;
     back.hidden = n === 1 || n > TOTAL;
-    next.textContent = n === TOTAL ? '실측 신청하기' : '다음';
+    next.textContent = n === TOTAL ? '문자로 신청하기' : '다음';
     document.getElementById('cta').hidden = n > TOTAL;
     document.getElementById('alt').hidden = n > TOTAL;
     validate();
@@ -323,14 +327,8 @@
       phone: phoneI.value,
       memo: document.getElementById('memo').value.trim(),
     };
-    try {
-      await STORE.createRequest(payload, files.map(f => f.file));
-      showDone(payload);
-    } catch (e) {
-      err.textContent = e.message || '신청을 보내지 못했어요. 잠시 뒤 다시 시도하거나 전화로 문의해 주세요.';
-      err.style.display = 'block';
-      next.textContent = '다시 시도하기';
-    } finally { busy = false; validate(); }
+    busy = false;
+    showDone(payload);
   });
   back.addEventListener('click', () => go(cur - 1, -1));
 
@@ -346,10 +344,43 @@
       ['희망 시기', p.timing],
       ['연락처', p.phone],
     ].map(([k, v]) => `<div><span>${k}</span><b>${esc(v)}</b></div>`).join('');
-    document.getElementById('demoNote').hidden = STORE.mode !== 'local';
+    // 사장님께 보낼 문자
+    const lines = [
+      '[성원창호 홈페이지 실측 신청]',
+      '이름: ' + p.name,
+      '연락처: ' + p.phone,
+      '공사: ' + p.work.map(w => W[w]).join(', '),
+      '집: ' + [p.home_type, p.size, p.expanded].filter(Boolean).join(' · '),
+      '바꿀 곳: ' + p.rooms.join(', '),
+      '지역: ' + p.region + (p.apt ? ' · ' + p.apt : ''),
+      '희망 시기: ' + p.timing,
+      '실측 편한 때: ' + p.visit_pref,
+    ];
+    if (p.memo) lines.push('남긴 말: ' + p.memo);
+    if (files.length) lines.push('(사진 ' + files.length + '장 따로 보낼게요)');
+    const text = lines.join('\n');
+    const num = (SITE.smsTo || SITE.phone).replace(/\D/g, '');
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isMobile = isIOS || /Android/i.test(navigator.userAgent);
+    const smsUrl = `sms:${num}${isIOS ? '&' : '?'}body=${encodeURIComponent(text)}`;
+    const smsBtn = document.getElementById('smsBtn');
+    smsBtn.href = smsUrl;
+    document.getElementById('smsText').value = text;
+    if (!isMobile) {
+      smsBtn.hidden = true;
+      document.getElementById('smsGuide').innerHTML = `<b>${esc(p.name)}</b>님, 아래 내용을 사장님께 보내주시면 접수돼요.`;
+      ['smsPc', 'smsText', 'copyBtn'].forEach(id => document.getElementById(id).hidden = false);
+    }
+    document.getElementById('smsTip').hidden = !files.length;
     go(6, 1);
+    if (isMobile) setTimeout(() => { location.href = smsUrl; }, 400);
     setTimeout(() => document.querySelector('.done-check').classList.add('go'), 150);
   }
+  document.getElementById('copyBtn').addEventListener('click', async e => {
+    const t = document.getElementById('smsText');
+    try { await navigator.clipboard.writeText(t.value); } catch (_) { t.select(); document.execCommand('copy'); }
+    e.currentTarget.textContent = '복사했어요';
+  });
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
   validate();

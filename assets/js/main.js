@@ -51,7 +51,7 @@
     { href: 'replace.html', ic: 'home', t: '샷시 교체', d: '오래된 샷시 철거부터 마감까지' },
     { href: 'products.html', ic: 'grid', t: 'KCC 창호 제품', d: '발코니 · 일반 · 시스템 창호' },
     { href: 'process.html', ic: 'calendar', t: '시공 과정', d: '상담부터 공사 당일까지' },
-    { href: 'screen.html', ic: 'bug', t: '방충망', d: '미세 · 스텐 · 고양이 · 롤 방충망' },
+    { href: 'screen.html', ic: 'bug', t: '방충망', d: '미세 · 롤 방충망' },
   ];
   const isSvc = services.some(s => s.href === here);
   const act = h => (h === here ? ' class="active"' : '');
@@ -77,7 +77,6 @@
           <div class="dropdown">${services.map(s => `<a href="${s.href}"><span class="ico">${icon(s.ic)}</span><span><b>${s.t}</b><span>${s.d}</span></span></a>`).join('')}</div>
         </li>
         <li><a href="cases.html"${act('cases.html')}>시공 사례</a></li>
-        <li><a href="price.html"${act('price.html')}>견적 계산</a></li>
         <li><a href="faq.html"${act('faq.html')}>자주 묻는 질문</a></li>
       </ul>
       <div class="header-cta">
@@ -95,7 +94,7 @@
   mMenu.innerHTML = `
     <div class="group">${mLink('index.html', '홈', k++)}${mLink('about.html', '회사소개 · 오시는 길', k++)}</div>
     <div class="group"><div class="group-title">샷시 교체</div>${services.map(s => mLink(s.href, s.t, k++)).join('')}</div>
-    <div class="group">${mLink('cases.html', '시공 사례', k++)}${mLink('price.html', '견적 계산', k++)}${mLink('faq.html', '자주 묻는 질문', k++)}</div>
+    <div class="group">${mLink('cases.html', '시공 사례', k++)}${mLink('faq.html', '자주 묻는 질문', k++)}</div>
     <div class="m-cta">
       <a class="btn btn-accent btn-lg" href="contact.html">무료 실측 신청</a>
       <a class="btn btn-line btn-lg" href="tel:${tel}">${icon('phone')}${S.phone}</a>
@@ -134,7 +133,7 @@
           <div><h4>샷시 교체</h4><ul>${services.map(s => `<li><a href="${s.href}">${s.t}</a></li>`).join('')}</ul></div>
           <div><h4>안내</h4><ul>
             <li><a href="about.html">회사소개</a></li><li><a href="cases.html">시공 사례</a></li>
-            <li><a href="price.html">견적 계산</a></li><li><a href="faq.html">자주 묻는 질문</a></li>
+            <li><a href="faq.html">자주 묻는 질문</a></li>
             <li><a href="contact.html">무료 실측 신청</a></li></ul></div>
         </div>
       </div>
@@ -177,7 +176,7 @@
     if (!closed) {
       const n = document.createElement('div');
       n.className = 'demo-notice';
-      n.innerHTML = `<span><b>시안</b>가격은 예시예요</span><button type="button" aria-label="안내 닫기">${icon('x')}</button>`;
+      n.innerHTML = `<span><b>시안</b>오픈 전 미리보기예요</span><button type="button" aria-label="안내 닫기">${icon('x')}</button>`;
       n.querySelector('button').onclick = () => { n.remove(); try { sessionStorage.setItem('demo_notice_closed', '1'); } catch (e) {} };
       document.body.append(n);
     }

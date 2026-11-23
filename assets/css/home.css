@@ -227,3 +227,12 @@
 .kcc-grid.five .kcc-item p { font-size: 14.5px; }
 @media (max-width: 999px) { .kcc-grid.five { grid-template-columns: 1fr 1fr; } .kcc-grid.five .kcc-item:nth-child(odd) { padding-left: 0; border-left: 0; } .kcc-grid.five .kcc-item:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); margin-top: 20px; } }
 @media (max-width: 559px) { .kcc-grid.five { grid-template-columns: 1fr; } .kcc-grid.five .kcc-item { padding-left: 0; border-left: 0; } }
+
+/* 첫 화면 = 견적 안내 띠 */
+.hero-band .cta-band { min-height: min(560px, calc(100svh - var(--header-h) - 190px)); align-content: center; }
+.hero-band .cta-band .title { font-size: clamp(36px, 5.2vw, 62px); line-height: 1.22; letter-spacing: -.035em; }
+.hero-band .trust { margin-top: 28px; }
+
+/* 하는 일 타일 4개: 4번째(방충망)가 아래 두 칸을 채워요 */
+@media (min-width: 900px) { .svc-tile:nth-child(4):last-child { grid-column: 2 / span 2; } }
+@media (min-width: 480px) and (max-width: 899px) { .svc-tile:nth-child(4):last-child { grid-column: span 2; } }
