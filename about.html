@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>회사소개 · 오시는 길 | KCC 성원창호</title>
 <meta name="description" content="제작부터 시공까지, 창호 도소매 전문업체 성원창호. 화성 정남 공장에서 직접 만들고 경기도 · 서울에 직접 시공해요.">
-<link rel="icon" href="assets/brand/logo-mark.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/logo.png" type="image/png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
@@ -144,7 +144,7 @@
 <script src="assets/js/site-config.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-  document.querySelector('.sign-logo').innerHTML = window.LOGO_SVG;
+  document.querySelector('.sign-logo').innerHTML = window.LOGO_IMG;
   document.getElementById('copyAddr').addEventListener('click', async () => {
     const t = SITE.address + (SITE.addressOld ? ` (${SITE.addressOld})` : '');
     try { await navigator.clipboard.writeText(t); toast('주소를 복사했어요'); }

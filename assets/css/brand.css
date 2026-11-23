@@ -57,3 +57,14 @@
 /* 어두운 구역 위 글자 */
 .eyebrow.light { color: var(--amber); }
 .text-link.light { color: #fff; }
+
+/* 의뢰인 원래 로고 (KCC 성원창호) */
+.logo-img { display: block; height: 30px; width: auto; }
+.footer .logo-img { height: 34px; }
+.m-menu .logo-img { height: 28px; }
+@media (max-width: 767px) { .header .logo-img { height: 26px; } }
+.sign .sign-logo { width: auto; height: auto; border-radius: 0; background: none; padding-right: 4px; }
+.sign .sign-logo .logo-img { height: 28px; }
+.login-logo .logo-img { height: 36px; margin: 0 auto; }
+.login-logo { width: auto; height: auto; }
+.login-logo .logo-img { margin: 0; }

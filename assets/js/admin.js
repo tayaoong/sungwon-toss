@@ -24,8 +24,8 @@
   paintIcons();
 
   const LOGO = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#3182F6"/><rect x="10" y="12" width="17" height="24" rx="3" fill="#fff" fill-opacity=".42"/><rect x="21" y="12" width="17" height="24" rx="3" fill="#fff"/><rect x="24.5" y="21" width="2.6" height="6" rx="1.3" fill="#3182F6"/></svg>';
-  $('#admLogo').innerHTML = `<span class="logo-mark">${LOGO}</span><span class="logo-text">${S.brand ? `<small>${S.brand}</small>` : ''}${S.name}</span>`;
-  $('#loginLogo').innerHTML = LOGO;
+  $('#admLogo').innerHTML = `<img class="logo-img" src="../assets/brand/logo.png" alt="${S.nameFull}">`;
+  $('#loginLogo').innerHTML = `<img class="logo-img" src="../assets/brand/logo.png" alt="${S.nameFull}">`;
 
   /* ---------- 토스트 ---------- */
   let tt;

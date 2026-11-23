@@ -57,7 +57,8 @@
   const act = h => (h === here ? ' class="active"' : '');
   const logoSvg = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#3182F6"/><rect x="9" y="11" width="18" height="26" rx="1.5" fill="#fff" fill-opacity=".32"/><rect x="21" y="11" width="18" height="26" rx="1.5" fill="#fff"/><rect x="24.6" y="20.5" width="2.8" height="7" rx="1.4" fill="#3182F6"/></svg>';
   window.LOGO_SVG = logoSvg;
-  const logoHtml = `<span class="logo-mark">${logoSvg}</span><span class="logo-text">${S.brand ? `<small>${S.brand}</small>` : ''}${S.name}</span>`;
+  const logoHtml = `<img class="logo-img" src="assets/brand/logo.png" alt="${S.nameFull}" width="571" height="127">`;
+  window.LOGO_IMG = logoHtml;
   const hasKakao = !!(S.kakaoUrl && S.kakaoUrl !== '#');
   const msgHref = hasKakao ? S.kakaoUrl : `sms:${tel}`;
   const msgLabel = hasKakao ? '카카오톡 상담' : '문자 문의';
